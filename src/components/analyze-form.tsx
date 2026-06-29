@@ -62,9 +62,9 @@ export function AnalyzeForm() {
   }
 
   return (
-    <div className="space-y-10">
-      <form onSubmit={handleSubmit} className="space-y-6" noValidate>
-        <div className="grid gap-8 lg:grid-cols-2">
+    <div className="relative space-y-12">
+      <form onSubmit={handleSubmit} className="space-y-8" noValidate>
+        <div className="grid gap-6 lg:grid-cols-2">
           <ResumeUpload
             file={file}
             onFileChange={setFile}
@@ -82,9 +82,12 @@ export function AnalyzeForm() {
           <button
             type="submit"
             disabled={loading}
-            className="rounded-lg bg-stone-900 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-stone-800 disabled:cursor-not-allowed disabled:opacity-60"
+            className="rounded-full bg-accent px-8 py-3 text-sm font-semibold tracking-wide text-white uppercase transition hover:bg-accent-hover disabled:cursor-not-allowed disabled:opacity-50"
+            style={{
+              boxShadow: loading ? "none" : "0 0 24px var(--accent-glow)",
+            }}
           >
-            {loading ? "Analyzing…" : "Analyze resume"}
+            {loading ? "Analyzing…" : "Analyze"}
           </button>
 
           {!jobDescription && (
@@ -92,9 +95,9 @@ export function AnalyzeForm() {
               type="button"
               disabled={loading}
               onClick={() => setJobDescription(EXAMPLE_JOB)}
-              className="text-sm text-stone-600 underline-offset-2 hover:text-stone-900 hover:underline disabled:pointer-events-none"
+              className="rounded-full border border-border px-6 py-3 text-sm font-medium text-muted transition hover:border-accent/50 hover:text-foreground disabled:pointer-events-none"
             >
-              Use example job description
+              Use example
             </button>
           )}
         </div>
@@ -102,7 +105,7 @@ export function AnalyzeForm() {
         {error && (
           <p
             role="alert"
-            className="rounded-lg border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-800"
+            className="rounded-xl border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-300"
           >
             {error}
           </p>
@@ -110,8 +113,10 @@ export function AnalyzeForm() {
       </form>
 
       {result && (
-        <div className="space-y-3">
-          <h2 className="text-lg font-semibold text-stone-900">Results</h2>
+        <div className="space-y-4">
+          <p className="text-xs font-medium tracking-[0.25em] text-muted uppercase">
+            Your results
+          </p>
           <AnalysisResults result={result} />
         </div>
       )}
